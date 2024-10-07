@@ -14,32 +14,19 @@ class DessertViewModel : ViewModel() {
     val dessertUiState: StateFlow<DessertUiState> = _dessertUiState.asStateFlow()
 
     fun onDessertClicked() {
-        _dessertUiState.update { cupcakeUiState ->
-            val dessertsSold = cupcakeUiState.dessertsSold + 1
+        _dessertUiState.update { currentState ->
+            val dessertsSold = currentState.dessertsSold + 1
             val nextDessertIndex = determineDessertIndex(dessertsSold)
-            cupcakeUiState.copy(
-                currentDessertIndex = nextDessertIndex,
-                revenue = cupcakeUiState.revenue + cupcakeUiState.currentDessertPrice,
+            currentState.copy(
                 dessertsSold = dessertsSold,
-                currentDessertImageId = dessertList[nextDessertIndex].imageId,
-                currentDessertPrice = dessertList[nextDessertIndex].price
+                revenue = currentState.revenue + currentState.currentDessertPrice,
+                currentDessertIndex = nextDessertIndex
             )
         }
     }
 
     private fun determineDessertIndex(dessertsSold: Int): Int {
-        var dessertIndex = 0
-        for (index in dessertList.indices) {
-            if (dessertsSold >= dessertList[index].startProductionAmount) {
-                dessertIndex = index
-            } else {
-                // The list of desserts is sorted by startProductionAmount. As you sell more
-                // desserts, you'll start producing more expensive desserts as determined by
-                // startProductionAmount. We know to break as soon as we see a dessert who's
-                // "startProductionAmount" is greater than the amount sold.
-                break
-            }
-        }
-        return dessertIndex
+        return dessertList.indexOfLast { dessertsSold >= it.startProductionAmount }
+            .coerceAtLeast(0) // Ensure the index is not negative
     }
 }

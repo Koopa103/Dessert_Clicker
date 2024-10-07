@@ -21,7 +21,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -44,7 +46,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.dessertclicker.data.DessertUiState
 import com.example.dessertclicker.ui.DessertViewModel
 import com.example.dessertclicker.ui.theme.DessertClickerTheme
-i
+
 
 
 // tag for logging
@@ -169,15 +171,15 @@ private fun AppBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.primary),
+            .background(MaterialTheme.colorScheme.primary),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(R.string.app_name),
             modifier = Modifier.padding(start = 16.dp),
-            color = MaterialTheme.colors.onPrimary,
-            style = MaterialTheme.typography.h6,
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.headlineLarge,
         )
         IconButton(
             onClick = onShareButtonClicked,
@@ -186,7 +188,7 @@ private fun AppBar(
             Icon(
                 imageVector = Icons.Filled.Share,
                 contentDescription = stringResource(R.string.share),
-                tint = MaterialTheme.colors.onPrimary
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
@@ -253,12 +255,12 @@ private fun RevenueInfo(revenue: Int, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = stringResource(R.string.total_revenue),
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.headlineMedium
         )
         Text(
             text = "$${revenue}",
             textAlign = TextAlign.Right,
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.headlineMedium
         )
     }
 }
@@ -273,11 +275,11 @@ private fun DessertsSoldInfo(dessertsSold: Int, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = stringResource(R.string.dessert_sold),
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.headlineLarge
         )
         Text(
             text = dessertsSold.toString(),
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.headlineLarge
         )
     }
 }
